@@ -12,7 +12,7 @@ type DBRepository interface {
 type dbRespository struct {
 }
 
-func New() DBRepository {
+func NewRepository() DBRepository {
 	return &dbRespository{}
 }
 
