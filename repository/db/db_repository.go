@@ -1,6 +1,7 @@
 package db
 
 import (
+	"moku-moku/clients/cassandra"
 	"moku-moku/domain/access_token"
 	"moku-moku/utils/errors"
 )
