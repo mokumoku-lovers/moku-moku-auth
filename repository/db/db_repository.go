@@ -5,6 +5,10 @@ import (
 	"moku-moku/utils/errors"
 )
 
+const (
+	queryCreateAccessToken = "INSERT INTO access_tokens(access_token, user_id, token_expiration) VALUES (?, ?, ?);"
+)
+
 type DBRepository interface {
 	GetByID(string) (*access_token.AccessToken, *errors.RestErr)
 }
