@@ -12,6 +12,7 @@ const (
 
 type DBRepository interface {
 	GetByID(string) (*access_token.AccessToken, *errors.RestErr)
+	UpdateExpiration(access_token.AccessToken) *errors.RestErr
 }
 
 type dbRespository struct {
