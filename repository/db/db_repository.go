@@ -5,6 +5,10 @@ import (
 	"moku-moku/utils/errors"
 )
 
+const (
+	queryUpdateExpiration = "UPDATE access_tokens SET expires=? WHERE access_token=?;"
+)
+
 type DBRepository interface {
 	GetByID(string) (*access_token.AccessToken, *errors.RestErr)
 }
