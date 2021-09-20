@@ -17,19 +17,19 @@ type DBRepository interface {
 	Create(token access_token.AccessToken) *errors.RestErr
 }
 
-type dbRespository struct {
+type dbRepository struct {
 }
 
 func NewRepository() DBRepository {
-	return &dbRespository{}
+	return &dbRepository{}
 }
 
-func (r *dbRespository) GetByID(id string) (*access_token.AccessToken, *errors.RestErr) {
+func (r *dbRepository) GetByID(id string) (*access_token.AccessToken, *errors.RestErr) {
 	return nil, nil
 }
 
 // Create Create access token in db
-func (r *dbRespository) Create(at access_token.AccessToken) *errors.RestErr {
+func (r *dbRepository) Create(at access_token.AccessToken) *errors.RestErr {
 	session, err := cassandra.GetSession()
 	if err != nil {
 		return errors.InternalServerError(err.Error())
@@ -43,7 +43,7 @@ func (r *dbRespository) Create(at access_token.AccessToken) *errors.RestErr {
 }
 
 // UpdateExpiration Update expiration in db
-func (r *dbRespository) UpdateExpiration(at access_token.AccessToken) *errors.RestErr {
+func (r *dbRepository) UpdateExpiration(at access_token.AccessToken) *errors.RestErr {
 	session, err := cassandra.GetSession()
 	if err != nil {
 		return errors.InternalServerError(err.Error())
