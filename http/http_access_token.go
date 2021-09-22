@@ -5,6 +5,7 @@ import (
 	"moku-moku/domain/access_token"
 	"moku-moku/utils/errors"
 	"net/http"
+	"strings"
 )
 
 type AccessTokenHandler interface {
@@ -23,7 +24,13 @@ func NewHandler(service access_token.Service) AccessTokenHandler {
 }
 
 func (h *accessTokenHandler) GetByID(c *gin.Context) {
-	c.JSON(http.StatusNotImplemented, "To be implemented")
+	at, err := h.service.GetByID(strings.TrimSpace(c.Param("access_token_id")))
+
+	if err != nil {
+		c.JSON(err.Status, err)
+	}
+
+	c.JSON(http.StatusOK, at)
 }
 
 func (h *accessTokenHandler) Create(c *gin.Context) {
