@@ -28,7 +28,7 @@ func loadEnvironment() {
 func init() {
 	loadEnvironment()
 	host = os.Getenv(cHost)
-	cluster := gocql.NewCluster(host)
+	cluster = gocql.NewCluster(host)
 	cluster.Keyspace = "oauth"
 	cluster.Consistency = gocql.Quorum
 }
