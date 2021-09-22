@@ -1,6 +1,7 @@
 package db
 
 import (
+	"github.com/gocql/gocql"
 	"moku-moku/clients/cassandra"
 	"moku-moku/domain/access_token"
 	"moku-moku/utils/errors"
@@ -35,6 +36,9 @@ func (r *dbRepository) GetByID(id string) (*access_token.AccessToken, *errors.Re
 
 	var at access_token.AccessToken
 	if err := session.Query(queryGetByID, id).Scan(&at.AccessToken, &at.TokenExpiration, &at.UserId); err != nil {
+		if err == gocql.ErrNotFound {
+			return nil, errors.NotFoundError("ID not found")
+		}
 		return nil, errors.InternalServerError(err.Error())
 	}
 
