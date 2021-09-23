@@ -10,7 +10,7 @@ import (
 const (
 	queryGetByID           = "SELECT access_token, expires, user_id FROM access_tokens WHERE access_token=?;"
 	queryUpdateExpiration  = "UPDATE access_tokens SET expires=? WHERE access_token=?;"
-	queryCreateAccessToken = "INSERT INTO access_tokens(access_token, user_id, token_expiration) VALUES (?, ?, ?);"
+	queryCreateAccessToken = "INSERT INTO access_tokens(access_token, user_id, expires) VALUES (?, ?, ?);"
 )
 
 type DBRepository interface {
