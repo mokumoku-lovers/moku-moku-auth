@@ -15,7 +15,7 @@ const (
 
 type DBRepository interface {
 	GetByID(string) (*access_token.AccessToken, *errors.RestErr)
-	UpdateExpiration(access_token.AccessToken) *errors.RestErr
+	UpdateExpirationTime(access_token.AccessToken) *errors.RestErr
 	Create(token access_token.AccessToken) *errors.RestErr
 }
 
@@ -60,7 +60,7 @@ func (r *dbRepository) Create(at access_token.AccessToken) *errors.RestErr {
 }
 
 // UpdateExpiration Update expiration in db
-func (r *dbRepository) UpdateExpiration(at access_token.AccessToken) *errors.RestErr {
+func (r *dbRepository) UpdateExpirationTime(at access_token.AccessToken) *errors.RestErr {
 	session, err := cassandra.GetSession()
 	if err != nil {
 		return errors.InternalServerError(err.Error())
