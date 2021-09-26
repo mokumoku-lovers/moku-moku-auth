@@ -68,8 +68,8 @@ func (r *dbRepository) UpdateExpiration(at access_token.AccessToken) *errors.Res
 	defer session.Close()
 
 	if err := session.Query(queryUpdateExpiration,
-		at.AccessToken,
 		at.TokenExpiration,
+		at.AccessToken,
 	).Exec(); err != nil {
 		return errors.InternalServerError(err.Error())
 	}
