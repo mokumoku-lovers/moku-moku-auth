@@ -1,6 +1,8 @@
 package access_token
 
 import (
+	"fmt"
+	"moku-moku/utils/crypto_utils"
 	"moku-moku/utils/errors"
 	"strings"
 	"time"
@@ -38,4 +40,8 @@ func GetNewAccessToken() AccessToken {
 
 func (at AccessToken) IsExpired() bool {
 	return time.Unix(at.TokenExpiration, 0).Before(time.Now().UTC())
+}
+
+func (at *AccessToken) Generate() {
+	at.AccessToken = crypto_utils.Md5Encrypt(fmt.Sprintf("at-%d-%d-ran", at.UserId, at.TokenExpiration))
 }
