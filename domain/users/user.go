@@ -8,7 +8,7 @@ type User struct {
 	Biography   string `json:"biography"`
 	Birthday    string `json:"birthday"`
 	ProfilePic  string `json:"profile_picture"`
-	Points      int32  `json:"points"`
+	Points      int64  `json:"points"`
 	DateCreated string `json:"date_created"`
 }
 
