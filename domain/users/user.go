@@ -11,3 +11,8 @@ type User struct {
 	Points      int32  `json:"points"`
 	DateCreated string `json:"date_created"`
 }
+
+type UserLoginRequest struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
