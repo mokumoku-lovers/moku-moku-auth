@@ -48,7 +48,17 @@ func (s *service) Create(request AccessTokenRequest) (*AccessToken, *errors.Rest
 	if err != nil {
 		return nil, err
 	}
-	return s.repository.Create(at)
+
+	// New AT generation
+	at := GetNewAccessToken(user.Id)
+	at.Generate()
+
+	// Store the new AT in Cassandra
+	if err := s.repository.Create(at); err != nil {
+		return nil, err
+	}
+
+	return &at, nil
 }
 
 func (s *service) UpdateExpirationTime(at AccessToken) *errors.RestErr {
