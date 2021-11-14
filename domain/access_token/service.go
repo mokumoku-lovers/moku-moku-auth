@@ -1,6 +1,9 @@
 package access_token
 
-import "moku-moku/utils/errors"
+import (
+	"moku-moku/repository/rest"
+	"moku-moku/utils/errors"
+)
 
 type Repository interface {
 	GetByID(string) (*AccessToken, *errors.RestErr)
@@ -10,17 +13,19 @@ type Repository interface {
 
 type Service interface {
 	GetByID(string) (*AccessToken, *errors.RestErr)
-	Create(AccessToken) *errors.RestErr
+	Create(AccessTokenRequest) (*AccessToken, *errors.RestErr)
 	UpdateExpirationTime(AccessToken) *errors.RestErr
 }
 
 type service struct {
-	repository Repository
+	usersRepository rest.RestUsersRepository
+	repository      Repository
 }
 
-func NewService(repository Repository) Service {
+func NewService(usersRepository rest.RestUsersRepository, repository Repository) Service {
 	return &service{
-		repository: repository,
+		usersRepository: usersRepository,
+		repository:      repository,
 	}
 }
 
@@ -32,9 +37,16 @@ func (s *service) GetByID(accessTokenId string) (*AccessToken, *errors.RestErr) 
 	return at, nil
 }
 
-func (s *service) Create(at AccessToken) *errors.RestErr {
-	if err := at.Validate(); err != nil {
-		return err
+func (s *service) Create(request AccessTokenRequest) (*AccessToken, *errors.RestErr) {
+	// Validation of the login data
+	if err := request.Validate(); err != nil {
+		return nil, err
+	}
+
+	// Authenticate the user with User API
+	user, err := s.usersRepository.LoginUser(request.Username, request.Password)
+	if err != nil {
+		return nil, err
 	}
 	return s.repository.Create(at)
 }
