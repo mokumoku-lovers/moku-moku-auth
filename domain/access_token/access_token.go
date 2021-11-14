@@ -12,6 +12,18 @@ const (
 	expirationHours = 24
 )
 
+type AccessTokenRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+func (at *AccessTokenRequest) Validate() *errors.RestErr {
+	if at.Username == "" {
+		return errors.BadRequest("invalid credentials")
+	}
+	return nil
+}
+
 type AccessToken struct {
 	AccessToken     string `json:"access_token"`
 	UserId          int64  `json:"user_id"`
