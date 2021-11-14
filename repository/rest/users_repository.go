@@ -18,6 +18,10 @@ type RestUsersRepository interface {
 
 type usersRepository struct{}
 
+func NewUsersRepository() RestUsersRepository {
+	return &usersRepository{}
+}
+
 func (usersRepository) LoginUser(email string, password string) (*users.User, *errors.RestErr) {
 
 	resp, err := usersRestClient.R().
