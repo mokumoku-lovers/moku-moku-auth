@@ -8,9 +8,8 @@ import (
 )
 
 var (
-	usersRestClient = resty.Client{
-		HostURL: "http://168.138.215.26:9000",
-	}
+	// TODO: Change URL once deployed
+	usersRestClient = resty.New().SetHostURL("http://127.0.0.1:9000")
 )
 
 type RestUsersRepository interface {
