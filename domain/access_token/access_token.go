@@ -44,8 +44,9 @@ func (at *AccessToken) Validate() *errors.RestErr {
 	return nil
 }
 
-func GetNewAccessToken() AccessToken {
+func GetNewAccessToken(userId int64) AccessToken {
 	return AccessToken{
+		UserId:          userId,
 		TokenExpiration: time.Now().UTC().Add(expirationHours * time.Hour).Unix(),
 	}
 }
