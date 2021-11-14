@@ -29,7 +29,7 @@ func (usersRepository) LoginUser(email string, password string) (*users.User, *e
 			Email:    email,
 			Password: password,
 		}).
-		Get("/users/login")
+		Post("/users/login")
 
 	if err != nil || resp.IsError() == true {
 		return nil, errors.InternalServerError("invalid response when trying to login user")
