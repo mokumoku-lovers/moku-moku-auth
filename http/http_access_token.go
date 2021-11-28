@@ -10,7 +10,7 @@ import (
 
 type AccessTokenHandler interface {
 	GetByID(*gin.Context)
-	Login(*gin.Context)
+	UserLogin(*gin.Context)
 }
 
 type accessTokenHandler struct {
@@ -33,7 +33,7 @@ func (h *accessTokenHandler) GetByID(c *gin.Context) {
 	c.JSON(http.StatusOK, at)
 }
 
-func (h *accessTokenHandler) Login(c *gin.Context) {
+func (h *accessTokenHandler) UserLogin(c *gin.Context) {
 	var request access_token.AccessTokenRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
 		restErr := errors.BadRequest("invalid json body")
