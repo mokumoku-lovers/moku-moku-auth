@@ -44,7 +44,7 @@ func (s *service) Create(request AccessTokenRequest) (*AccessToken, *errors.Rest
 	}
 
 	// Authenticate the user with User API
-	user, err := s.usersRepository.LoginUser(request.Username, request.Password)
+	user, err := s.usersRepository.LoginUser(request.Email, request.Password)
 	if err != nil {
 		return nil, err
 	}

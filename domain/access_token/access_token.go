@@ -13,12 +13,12 @@ const (
 )
 
 type AccessTokenRequest struct {
-	Username string `json:"username"`
+	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
 func (at *AccessTokenRequest) Validate() *errors.RestErr {
-	if at.Username == "" {
+	if at.Email == "" {
 		return errors.BadRequest("invalid credentials")
 	}
 	return nil
