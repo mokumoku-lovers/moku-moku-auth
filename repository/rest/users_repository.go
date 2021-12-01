@@ -2,9 +2,10 @@ package rest
 
 import (
 	"encoding/json"
-	"github.com/go-resty/resty/v2"
 	"moku-moku/domain/users"
 	"moku-moku/utils/errors"
+
+	"github.com/go-resty/resty/v2"
 )
 
 var (
@@ -31,7 +32,7 @@ func (usersRepository) LoginUser(email string, password string) (*users.User, *e
 		}).
 		Post("/users/login")
 
-	if err != nil || resp.IsError() == true {
+	if err != nil || resp.IsError() {
 		return nil, errors.InternalServerError("invalid response when trying to login user")
 	}
 
