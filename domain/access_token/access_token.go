@@ -12,6 +12,18 @@ const (
 	expirationHours = 24
 )
 
+type AccessTokenRequest struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+func (at *AccessTokenRequest) Validate() *errors.RestErr {
+	if at.Email == "" {
+		return errors.BadRequest("invalid credentials")
+	}
+	return nil
+}
+
 type AccessToken struct {
 	AccessToken     string `json:"access_token"`
 	UserId          int64  `json:"user_id"`
@@ -32,8 +44,9 @@ func (at *AccessToken) Validate() *errors.RestErr {
 	return nil
 }
 
-func GetNewAccessToken() AccessToken {
+func GetNewAccessToken(userId int64) AccessToken {
 	return AccessToken{
+		UserId:          userId,
 		TokenExpiration: time.Now().UTC().Add(expirationHours * time.Hour).Unix(),
 	}
 }

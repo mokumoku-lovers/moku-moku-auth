@@ -5,6 +5,7 @@ import (
 	"moku-moku/domain/access_token"
 	"moku-moku/http"
 	"moku-moku/repository/db"
+	"moku-moku/repository/rest"
 )
 
 var (
@@ -12,10 +13,13 @@ var (
 )
 
 func StartApplication() {
-	atHandler := http.NewHandler(access_token.NewService(db.NewRepository()))
+	atHandler := http.NewHandler(
+		access_token.NewService(
+			rest.NewUsersRepository(),
+			db.NewRepository()))
 
 	router.GET("/oauth/access_token/:access_token_id", atHandler.GetByID)
-	router.POST("/oauth/access_token", atHandler.Create)
+	router.POST("/oauth/login", atHandler.UserLogin)
 
 	router.Run(":9001")
 }
