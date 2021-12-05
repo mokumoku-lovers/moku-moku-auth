@@ -25,16 +25,12 @@ func NewUsersRepository() RestUsersRepository {
 
 func (usersRepository) LoginUser(email string, password string) (*users.User, *errors.RestErr) {
 
-	resp, err := usersRestClient.R().
+	resp, _ := usersRestClient.R().
 		SetBody(users.UserLoginRequest{
 			Email:    email,
 			Password: password,
 		}).
 		Post("/users/login")
-
-	if err != nil || resp.IsError() {
-		return nil, errors.InternalServerError("invalid response when trying to login user")
-	}
 
 	if resp.StatusCode() > 299 {
 		var restErr errors.RestErr
