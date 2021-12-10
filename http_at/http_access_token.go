@@ -1,11 +1,12 @@
-package http
+package http_at
 
 import (
-	"github.com/gin-gonic/gin"
 	"moku-moku/domain/access_token"
 	"moku-moku/utils/errors"
 	"net/http"
 	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 type AccessTokenHandler interface {
