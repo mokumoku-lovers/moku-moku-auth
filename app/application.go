@@ -1,9 +1,8 @@
 package app
 
 import (
-	"github.com/gin-gonic/gin"
 	"moku-moku/domain/access_token"
-	"moku-moku/http"
+	"moku-moku/http_at"
 	"moku-moku/repository/db"
 	"moku-moku/repository/rest"
 	"net/http"
@@ -17,7 +16,7 @@ var (
 )
 
 func StartApplication() {
-	atHandler := http.NewHandler(
+	atHandler := http_at.NewHandler(
 		access_token.NewService(
 			rest.NewUsersRepository(),
 			db.NewRepository()))
