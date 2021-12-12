@@ -17,7 +17,7 @@ definitions:
       UserId:
         type: integer
         format: int
-      TokenExpirations: 
+      TokenExpiration: 
         type: integer
         format: int
 
