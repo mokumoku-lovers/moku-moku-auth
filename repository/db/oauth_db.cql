@@ -8,3 +8,13 @@ CREATE KEYSPACE IF NOT EXISTS oauth WITH REPLICATION = {'class': 'SimpleStrategy
 
 // Select keyspace
 USE oauth;
+
+// Show keyspace's tables
+DESCRIBE TABLES;
+
+// AT table
+CREATE TABLE access_tokens(
+    access_token    varchar PRIMARY KEY,
+    expires         bigint,
+    user_id         bigint
+);
