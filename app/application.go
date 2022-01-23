@@ -7,6 +7,7 @@ import (
 	"moku-moku/repository/rest"
 	"net/http"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/go-openapi/runtime/middleware"
 )
@@ -20,6 +21,9 @@ func StartApplication() {
 		access_token.NewService(
 			rest.NewUsersRepository(),
 			db.NewRepository()))
+
+	// Add cors middleware
+	router.Use(cors.Default())
 
 	router.GET("/oauth/access_token/:access_token_id", atHandler.GetByID)
 	router.POST("/oauth/login", atHandler.UserLogin)
