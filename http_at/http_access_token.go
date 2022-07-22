@@ -29,6 +29,7 @@ func (h *accessTokenHandler) GetByID(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(err.Status, err)
+		return
 	}
 
 	c.JSON(http.StatusOK, at)
